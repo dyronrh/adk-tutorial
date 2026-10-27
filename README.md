@@ -6,6 +6,7 @@ Code for the Google ADK (Agent Development Kit) video tutorial series. Each fold
 |---|---|---|
 | [`my_agent/`](my_agent/) | Part 1 | Your first agent with a Python function as a tool |
 | [`mcp_agent/`](mcp_agent/) | Part 2 | Connect an agent to the GitHub MCP server with `McpToolset` |
+| [`adk-memory/`](adk-memory/) | Part 3 | Memory that survives restarts: session state with `user:`, `DatabaseSessionService` and `MemoryService` |
 
 ## Requirements
 
@@ -102,3 +103,19 @@ Key points in [`mcp_agent/agent.py`](mcp_agent/agent.py):
 | `Failed to create MCP session: timed out` | Keep `timeout=30` in `StreamableHTTPConnectionParams`. |
 | The agent answers without using tools | Check `GITHUB_PERSONAL_ACCESS_TOKEN` in `mcp_agent/.env`. |
 | Port 8000 already in use | `lsof -ti :8000 \| xargs kill`, or use `adk web --port 8001`. |
+
+## Part 3: memory (sessions, state and MemoryService)
+
+Why your agent remembers everything on your laptop but forgets on Cloud Run, and how to fix it. Everything is in [`adk-memory/`](adk-memory/) (the folder README is in Spanish, like the video).
+
+```bash
+cd adk-memory
+pip install -r requirements.txt
+python test_persistencia.py          # no API key needed
+python memoria_largo_plazo.py        # no API key needed
+python main.py "Hola, me llamo Dayron y programo en Go"
+python main.py "¿En qué lenguaje programo?"   # new conversation → "Go"
+```
+
+The trap from the video: `sqlite://memoria.db` (two slashes) is not a path; with `adk web` or `--session_service_uri` ADK silently falls back to in-memory storage. Use three slashes: `sqlite:///memoria.db`.
+
