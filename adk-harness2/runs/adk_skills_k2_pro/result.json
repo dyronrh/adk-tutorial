@@ -1,0 +1,24 @@
+{
+  "domain": "contabilidad",
+  "n_tasks": 2,
+  "seed": null,
+  "done": 2,
+  "failed": 0,
+  "tasks": [
+    {
+      "task": "conciliacion-marzo",
+      "status": "ok",
+      "library_entries_before": {
+        "agg": 0
+      }
+    },
+    {
+      "task": "conciliacion-abril",
+      "status": "ok",
+      "library_entries_before": {
+        "agg": 0
+      }
+    }
+  ],
+  "ejecuciones_adk": 16
+}

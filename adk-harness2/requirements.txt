@@ -1,0 +1,2 @@
+google-adk>=2.13
+# harness2 se instala desde su repo: pip install -e <ruta>/harness2

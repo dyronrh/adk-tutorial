@@ -7,6 +7,7 @@ Code for the Google ADK (Agent Development Kit) video tutorial series. Each fold
 | [`my_agent/`](my_agent/) | Part 1 | Your first agent with a Python function as a tool |
 | [`mcp_agent/`](mcp_agent/) | Part 2 | Connect an agent to the GitHub MCP server with `McpToolset` |
 | [`adk-memory/`](adk-memory/) | Part 3 | Memory that survives restarts: session state with `user:`, `DatabaseSessionService` and `MemoryService` |
+| [`adk-harness2/`](adk-harness2/) | Part 4 | Native ADK skills with `SkillToolset`, and Harness² improving the agent's tools and skills without retraining the model |
 
 ## Requirements
 
@@ -119,3 +120,19 @@ python main.py "¿En qué lenguaje programo?"   # new conversation → "Go"
 
 The trap from the video: `sqlite://memoria.db` (two slashes) is not a path; with `adk web` or `--session_service_uri` ADK silently falls back to in-memory storage. Use three slashes: `sqlite:///memoria.db`.
 
+
+## Part 4: Harness² improves the agent and its skill
+
+An agent that reconciles corporate card statements with a Python tool and a native ADK skill (`SkillToolset`). The skill is an outdated company manual (a fixed exchange rate and "always report 0 refunds") and the tool drops negative amounts. Harness² finds and fixes those errors by editing the agent's files, without retraining the model and without ever seeing the correct answer. Then the result is exported back to a normal ADK agent. Everything is in [`adk-harness2/`](adk-harness2/) (the folder README is in Spanish, like the video).
+
+It needs Python 3.12, `google-adk` 2.13+ and [Harness²](https://github.com/google-research/harness2) installed from its repo.
+
+```bash
+cd adk-harness2
+cp .env.example .env                    # your Gemini API key
+python run.py --offline --k 1 --mode parallel   # smoke test, no API key needed
+python validar.py --repeticiones 3      # original vs improved agent, on seen and new tasks
+./demo_web/web.sh marzo                 # both agents side by side in adk web
+```
+
+The catch from the video: with only two training tasks, Harness² copied the exchange rate (950) into the skill instead of writing the rule (read `fx.txt`), so it fails a new task with a different rate. Test on tasks it never saw before you trust the result.

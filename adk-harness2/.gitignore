@@ -1,0 +1,16 @@
+.env
+__pycache__/
+.venv/
+demo_web/agentes/antes/
+demo_web/agentes/despues/
+demo_web/tareas/
+
+# Harness²: primera corrida fallida (modelo inexistente) y su log
+runs/adk_skills_k2/
+runs/harness_k2.log
+# Traza cruda de la corrida del video: se queda en local (resumen en EVIDENCIA.md y result.json)
+runs/adk_skills_k2_pro/runs/
+runs/adk_skills_k2_pro/audit/
+runs/adk_skills_k2_pro/executions/
+runs/adk_skills_k2_pro/base/
+runs/adk_skills_k2_pro/sources/

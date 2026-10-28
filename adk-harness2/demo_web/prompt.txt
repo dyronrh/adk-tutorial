@@ -1,0 +1,1 @@
+Concilia el extracto ledger.csv (el tipo de cambio está en fx.txt). Responde exactamente dos líneas: `Total USD: <neto con 2 decimales>` y `Abonos: <cantidad de movimientos de abono>`.
